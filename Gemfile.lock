@@ -1,0 +1,49 @@
+GIT
+  remote: git@github.com:alexdean/rspec-core.git
+  revision: bb7867b1491486117f1d87d680f160504fc947fb
+  branch: let-reporter
+  specs:
+    rspec-core (3.13.2)
+      rspec-support (~> 3.13.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    debug (1.9.2)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
+    diff-lcs (1.5.1)
+    io-console (0.7.2)
+    irb (1.14.1)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
+    psych (5.2.0)
+      stringio
+    rdoc (6.8.1)
+      psych (>= 4.0.0)
+    reline (0.5.11)
+      io-console (~> 0.5)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-expectations (3.13.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.1)
+    stringio (3.1.2)
+
+PLATFORMS
+  ruby
+  x86_64-darwin-22
+
+DEPENDENCIES
+  debug
+  rspec
+  rspec-core!
+
+BUNDLED WITH
+   2.5.18
