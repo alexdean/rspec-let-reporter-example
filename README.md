@@ -6,12 +6,9 @@ Some of the rspec test suites I work in are thousands of lines of code, with a g
 
 The patch here just prints out the file + line number where each `let` in use in a test was actually defined.
 
-Shortcomings:
+## Implementation
 
-  1. It's a monkey patch. I didn't see a way to do this cleanly via `prepend`. I briefly tried to convert this to a `Refinement` but couldn't get the syntax right. Just went with a messy monkeypatch since this is just a demo at this point.
-  2. I'm defining 2 methods instead of 1. Comments in the code describe what this is about. Again, this is the "just make something work" stage, to demonstrate the concept.
-  3. I'd rather have the output after the test. That'll require storing the output somewhere. `puts` was much easier for this early stage.
-  4. Would be nice to allow people to opt-in to this, via metadata or otherwise.
+The patch is in https://github.com/alexdean/rspec-core/commit/bb7867b1491486117f1d87d680f160504fc947fb
 
 ## Usage
 
@@ -102,3 +99,12 @@ person_3: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:7
 Finished in 0.00384 seconds (files took 0.16579 seconds to load)
 3 examples, 0 failures
 ```
+
+## TODO
+
+Things to fix before this would be ready for a real PR...
+
+  1. It's a monkey patch. I didn't see a way to do this cleanly via `prepend`. I briefly tried to convert this to a `Refinement` but couldn't get the syntax right. Just went with a messy monkeypatch since this is just a demo at this point.
+  2. I'm defining 2 methods instead of 1. Comments in the code describe what this is about. Again, this is the "just make something work" stage, to demonstrate the concept.
+  3. I'd rather have the output after the test. That'll require storing the output somewhere. `puts` was much easier for this early stage.
+  4. Would be nice to allow people to opt-in to this, via metadata or otherwise.
