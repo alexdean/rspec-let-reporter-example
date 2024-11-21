@@ -22,32 +22,83 @@ bundle
 bin/rspec
 ```
 
-## Sample Output
+## Example
+
+For a spec file like this:
+
+```ruby
+# spec/test_spec.rb
+require 'spec_helper'
+require 'debug'
+
+RSpec.describe 'things' do  
+  let(:person_1) { 'p1 from top level' }
+  let(:person_2) { 'p2 from top level' }
+  let(:person_3) { 'p3 from top level' }
+  let(:people) { [ person_1, person_2, person_3 ] }
+
+  example 'top-level test' do
+    expect(people).to eq([person_1, person_2, person_3])
+    expect(people).to eq([
+      'p1 from top level', 
+      'p2 from top level', 
+      'p3 from top level', 
+    ])
+  end
+
+  describe 'context 1' do
+    let(:person_2) { 'p2 from context 1' }
+
+    example 'test 1' do
+      expect(people).to eq([person_1, person_2, person_3])
+      expect(people).to eq([
+        'p1 from top level', 
+        'p2 from context 1', 
+        'p3 from top level', 
+      ])     
+    end
+
+    describe 'context 2' do
+      let(:person_1) { 'p1 from context 2'}
+
+      example 'test 2' do
+        expect(people).to eq([person_1, person_2, person_3])
+
+        expect(people).to eq([
+          'p1 from context 2', 
+          'p2 from context 1', 
+          'p3 from top level', 
+        ])
+      end
+    end
+  end
+end
+```
+
+Will produce output like this:
 
 ```
 $ bin/rspec
 
-Randomized with seed 29263
-
 things
-people: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:75
-person_1: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:71
-person_2: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:73
-person_3: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:74
+people: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:8
+person_1: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:5
+person_2: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:6
+person_3: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:7
   top-level test
   context 1
-people: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:75
-person_1: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:71
-person_2: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:87
-person_3: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:74
+people: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:8
+person_1: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:5
+person_2: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:20
+person_3: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:7
     test 1
     context 2
-people: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:75
-person_1: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:99
-person_2: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:87
-person_3: /Users/alex/Code/rspec-let-insights/spec/test_spec.rb:74
+people: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:8
+person_1: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:32
+person_2: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:20
+person_3: /Users/alex/Code/rspec-let-reporter-example/spec/test_spec.rb:7
       test 2
 
-Finished in 0.00454 seconds (files took 0.19059 seconds to load)
+Finished in 0.00384 seconds (files took 0.16579 seconds to load)
 3 examples, 0 failures
 ```
